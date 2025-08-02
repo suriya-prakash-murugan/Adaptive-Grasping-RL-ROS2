@@ -10,14 +10,14 @@ class CameraSubscriber(Node):
         self.bridge = CvBridge()
         self.subscription = self.create_subscription(
             Image,
-            '/overhead_camera/image_raw',
+            '/camera/image_raw',
             self.listener_callback,
             10)
 
     def listener_callback(self, msg):
         try:
             cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
-            cv2.imshow("Overhead Camera View", cv_image)
+            cv2.imshow("Camera View", cv_image)
             cv2.waitKey(1)
         except Exception as e:
             self.get_logger().error(f'Image conversion failed: {e}')
